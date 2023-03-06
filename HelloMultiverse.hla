@@ -1,0 +1,5 @@
+program HelloMultiverse;
+#include("stdlib.hhf")
+begin HelloMultiverse;
+    stdout.put("Helllo HelloMultiverse, and welcome to kip's imagination");
+end HelloMultiverse;
