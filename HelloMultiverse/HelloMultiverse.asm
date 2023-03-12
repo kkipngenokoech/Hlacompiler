@@ -91,48 +91,64 @@ End_DfltExHndlr__hla__2107:
 _HLAMain:
  .global _start
 _start:
-        .byte      0x89
-        .byte      0xe0
+/*      movl       %esp, %eax */
+        .byte      0x89 /*  */
+        .byte      0xe0 /* mod-reg-r/m */
 _findEnvp_$$_:
-        .byte      0x83
-        .byte      0xc0
-        .byte      0x4
-        .byte      0x83
-        .byte      0x38
-        .byte      0x0
+/*      addl       $4, %eax */
+        .byte      0x83 /*  */
+        .byte      0xc0 /*  */
+        .byte      0x4 /*  */
+/*      cmpl       $0, (%eax) */
+        .byte      0x83 /*  */
+        .byte      0x38 /*  */
+        .byte      0x0 /*  */
         jne        _findEnvp_$$_
-        .byte      0x83
-        .byte      0xc0
-        .byte      0x4
-        .byte      0xa3
+/*      addl       $4, %eax */
+        .byte      0x83 /*  */
+        .byte      0xc0 /*  */
+        .byte      0x4 /*  */
+/*      mov        %eax, _envp__hla_ */
+        .byte      0xa3 /*  */
         .long      (_envp__hla_+0)
-        .byte      0x8d
-        .byte      0x44
-        .byte      0x24
-        .byte      0x4
-        .byte      0xa3
+/*      lea        4(%esp), %eax */
+        .byte      0x8d /*  */
+        .byte      0x44 /*  */
+        .byte      0x24 /*  */
+        .byte      0x4 /*  */
+/*      mov        %eax, _argv__hla_ */
+        .byte      0xa3 /*  */
         .long      (_argv__hla_+0)
-        .byte      0x8b
-        .byte      0x4
-        .byte      0x24
-        .byte      0xa3
+/*      mov        (%esp), %eax */
+        .byte      0x8b /*  */
+        .byte      0x4 /*  */
+        .byte      0x24 /*  */
+/*      mov        %eax, _argc__hla_ */
+        .byte      0xa3 /*  */
         .long      (_argc__hla_+0)
         call       BuildExcepts__hla_
-        .byte      0x6a
-        .byte      0x0
-        .byte      0x89
-        .byte      0xe5
-        .byte      0x55
+/*      pushl      $0 */
+        .byte      0x6a /*  */
+        .byte      0x0 /*  */
+/*      movl       %esp, %ebp */
+        .byte      0x89 /*  */
+        .byte      0xe5 /* mod-reg-r/m */
+/*      pushl      %ebp */
+        .byte      0x55 /*  */
 
 
-        .byte      0x68
+/*      pushl      $str__hla_2108 */
+        .byte      0x68 /*  */
         .long      str__hla_2108
         call       STDOUT_PUTS
 QuitMain__hla_:
-        .byte      0xb8
+/*      mov        $1, %eax */
+        .byte      0xb8 /*  */
         .long      0x1
-        .byte      0x31
-        .byte      0xdb
+/*      xorl       %ebx, %ebx */
+        .byte      0x31 /*  */
+        .byte      0xdb /* mod-reg-r/m */
+/*      int        $128 */
         .word      0x80cd
 End__HLAMain_2109:
   .size _HLAMain,End__HLAMain_2109-_HLAMain
